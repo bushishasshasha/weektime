@@ -1,0 +1,25 @@
+{
+  "name": "一周时间表生成器",
+  "short_name": "时间表",
+  "description": "把固定格式文字生成可交互的一周时间轴，并支持子任务、完成状态和 PDF 导出。",
+  "start_url": "./timetable.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fffaf0",
+  "theme_color": "#2f6f73",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
