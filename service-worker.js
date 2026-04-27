@@ -1,4 +1,4 @@
-const CACHE_NAME = "weekly-timetable-v47";
+const CACHE_NAME = "weekly-timetable-v48";
 const CORE_ASSETS = [
   "./",
   "./index.html",
