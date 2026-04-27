@@ -10,6 +10,20 @@
 timetable.html
 ```
 
+## 项目结构
+
+```text
+timetable.html       页面结构和弹窗骨架
+timetable.css        主题、手机端适配、动画和布局样式
+timetable-app.js     渲染、交互、主题切换、导入导出和本地存储逻辑
+data.js              示例时间表、主题素材、彩蛋文案和分类配置
+utils.js             时间解析、格式化、转义等通用工具
+service-worker.js    PWA 离线缓存清单
+assets/              主题背景素材
+```
+
+继续开发时，优先按这个分工放代码：视觉动效改 `timetable.css`，交互逻辑改 `timetable-app.js`，主题素材和文案改 `data.js`。
+
 ## GitHub Pages 部署
 
 1. 在 GitHub 新建一个仓库。

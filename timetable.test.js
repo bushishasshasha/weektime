@@ -179,9 +179,9 @@ function countEasterEggs(themeId) {
 }
 
 function serviceWorkerAssets() {
-  const assetsMatch = serviceWorker.match(/const ASSETS = \[([\s\S]*?)\];/);
-  assert(assetsMatch, "service worker should declare ASSETS");
-  return new Set([...assetsMatch[1].matchAll(/"([^"]+)"/g)].map(([, asset]) => asset));
+  const assetBlocks = [...serviceWorker.matchAll(/const (?:CORE_ASSETS|RUNTIME_ASSET_PREFIXES) = \[([\s\S]*?)\];/g)];
+  assert(assetBlocks.length, "service worker should declare cached assets");
+  return new Set(assetBlocks.flatMap(([, block]) => [...block.matchAll(/"([^"]+)"/g)].map(([, asset]) => asset)));
 }
 
 function resetState() {

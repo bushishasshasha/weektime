@@ -1,13 +1,17 @@
-const CACHE_NAME = "weekly-timetable-v33";
-const ASSETS = [
+const CACHE_NAME = "weekly-timetable-v47";
+const CORE_ASSETS = [
   "./",
   "./index.html",
   "./timetable.html",
+  "./timetable.css",
+  "./timetable-app.js",
   "./data.js",
   "./utils.js",
   "./manifest.webmanifest",
   "./icon.png",
-  "./icon.svg",
+  "./icon.svg"
+];
+const RUNTIME_ASSET_PREFIXES = [
   "./assets/dongxuelian/page-backgrounds/blossom-profile.jpg",
   "./assets/dongxuelian/page-backgrounds/blue-city-garden.jpg",
   "./assets/dongxuelian/page-backgrounds/listener-desk.jpg",
@@ -43,7 +47,7 @@ const ASSETS = [
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS))
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(CORE_ASSETS))
   );
   self.skipWaiting();
 });
@@ -59,11 +63,17 @@ self.addEventListener("activate", (event) => {
 
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
+  const url = new URL(event.request.url);
+  const isRuntimeAsset = RUNTIME_ASSET_PREFIXES.some((asset) => (
+    url.pathname.endsWith(asset.replace("./", "/"))
+  ));
   event.respondWith(
     caches.match(event.request).then((cached) => (
       cached || fetch(event.request).then((response) => {
-        const copy = response.clone();
-        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+        if (isRuntimeAsset || CORE_ASSETS.some((asset) => url.pathname.endsWith(asset.replace("./", "/")))) {
+          const copy = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+        }
         return response;
       })
     ))
